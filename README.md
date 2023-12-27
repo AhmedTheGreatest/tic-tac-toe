@@ -3,6 +3,8 @@ A simple Tic Tac Toe game made implemented in Ruby for TheOdinProject.
   
 ## Usage
 
+[![Run on Repl.it](https://replit.com/badge/github/AhmedTheGreatest/tic-tac-toe)](https://replit.com/new/github/AhmedTheGreatest/tic-tac-toe)
+
 To play the game, run `$ ruby tictactoe.rb` in your terminal
 
 For info on how to play the game visit [Wikipedia](https://en.wikipedia.org/wiki/Tic-tac-toe)
