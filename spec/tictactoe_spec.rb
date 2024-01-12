@@ -64,4 +64,36 @@ describe TicTacToe do
       end
     end
   end
+  describe TicTacToe::Player do
+    describe '#make_move' do
+      subject(:player_o) { TicTacToe::Player.new('Player O', 'O') }
+      context 'when entered a valid move' do
+        before do
+          allow(player_o).to receive(:puts)
+          allow(player_o).to receive(:gets).and_return('9\n')
+        end
+        it 'returns 8' do
+          expect(player_o.make_move).to eql(8)
+        end
+      end
+      context 'when entered a number greater than the maximum' do
+        before do
+          allow(player_o).to receive(:puts)
+          allow(player_o).to receive(:gets).and_return('32\n')
+        end
+        it 'returns 8' do
+          expect(player_o.make_move).to eql(8)
+        end
+      end
+      context 'when entered a number less than the minimum' do
+        before do
+          allow(player_o).to receive(:puts)
+          allow(player_o).to receive(:gets).and_return('-1\n')
+        end
+        it 'returns 0' do
+          expect(player_o.make_move).to eql(0)
+        end
+      end
+    end
+  end
 end
