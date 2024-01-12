@@ -145,8 +145,3 @@ module TicTacToe
     end
   end
 end
-
-# Create a TicTacToe game
-game = TicTacToe::Game.new
-# Play the game
-game.play
