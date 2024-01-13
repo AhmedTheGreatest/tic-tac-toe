@@ -96,4 +96,64 @@ describe TicTacToe do
       end
     end
   end
+  describe TicTacToe::Game do
+    describe '#switch_player' do
+      context 'when the current player is 1' do
+        subject(:player1_game) { TicTacToe::Game.new }
+
+        it 'correctly swaps current_player with player 2' do
+          player_two = player1_game.instance_variable_get(:@player2)
+          expect { player1_game.switch_player }.to change {
+            player1_game.instance_variable_get(:@current_player)
+          }.to(player_two)
+        end
+      end
+    end
+    describe '#fetch_valid_move' do
+      context 'when the player enters a valid move' do
+        subject(:game) { TicTacToe::Game.new }
+        before do
+          allow(game).to receive(:puts)
+          allow(game.instance_variable_get(:@current_player)).to receive(:make_move).and_return(3)
+        end
+        it 'returns 3 the valid move position' do
+          expect(game.fetch_valid_move).to eql(3)
+        end
+      end
+      context 'when the player enters an invalid move then a valid move' do
+        subject(:game) { TicTacToe::Game.new }
+        before do
+          allow(game).to receive(:puts)
+          board_cells = [' ', ' ', ' ', 'X', ' ', ' ', ' ', ' ', ' ']
+          game.instance_variable_get(:@board).instance_variable_set(:@board, board_cells)
+          allow(game.instance_variable_get(:@current_player)).to receive(:make_move).and_return(3, 8)
+        end
+        it 'returns 8 the valid move position' do
+          expect(game.fetch_valid_move).to eql(8)
+        end
+      end
+    end
+    describe '#check_winner' do
+      context 'when player x has won' do
+        subject(:player_x_game) { TicTacToe::Game.new }
+        before do
+          board_cells = ['X', ' ', ' ', ' ', 'X', ' ', ' ', ' ', 'X']
+          player_x_game.instance_variable_get(:@board).instance_variable_set(:@board, board_cells)
+        end
+        it 'returns sets @winner to @player1' do
+          expect(player_x_game.check_winner).to eql(true)
+        end
+      end
+      context 'when player o has won' do
+        subject(:player_o_game) { TicTacToe::Game.new }
+        before do
+          board_cells = [' ', 'O', ' ', ' ', 'O', '', ' ', 'O', ' ']
+          player_o_game.instance_variable_get(:@board).instance_variable_set(:@board, board_cells)
+        end
+        it 'returns sets @winner to @player1' do
+          expect(player_o_game.check_winner).to eql(true)
+        end
+      end
+    end
+  end
 end
